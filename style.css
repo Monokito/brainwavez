@@ -1,0 +1,336 @@
+:root{
+  --bg:#000000;
+  --surface:#eaf1ee;
+  --ink:#111111;
+  --muted-on-light:#3f5468;
+  --muted-on-dark:#9aa3ab;
+  --accent:#f1c203;
+  --label-dark:#16222c;
+  --line: rgba(255,255,255,0.14);
+  --display: "Anton", sans-serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --max: 880px;
+}
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.6;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; }
+
+/* ---------- Banner ---------- */
+.banner img{ width:100%; height:auto; display:block; }
+
+/* ---------- Site nav ---------- */
+.site-nav{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:18px 24px 0;
+  display:flex;
+  gap:24px;
+}
+.site-nav a{
+  font-family:var(--body);
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  text-decoration:none;
+  color:var(--accent);
+  border-bottom:2px solid transparent;
+  padding-bottom:2px;
+}
+.site-nav a.active,
+.site-nav a:hover{ border-bottom-color:var(--accent); }
+
+/* ---------- Layout ---------- */
+main{ max-width:var(--max); margin:0 auto; padding:0 24px; }
+.section{ padding:56px 0; border-bottom:1px solid var(--line); }
+.section:last-of-type{ border-bottom:none; }
+
+.section-title{
+  font-family:var(--display);
+  font-weight:400;
+  font-size:34px;
+  letter-spacing:0.02em;
+  color:var(--accent);
+  margin:0 0 28px;
+  text-transform:uppercase;
+}
+.eyebrow{
+  font-family:var(--body);
+  font-weight:600;
+  font-size:12.5px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin:0 0 6px;
+}
+
+/* ---------- Intro ---------- */
+.intro{ padding:44px 0 0; }
+.intro p{
+  font-size:19px;
+  line-height:1.65;
+  color:var(--ink);
+  max-width:640px;
+  margin:0;
+  background:var(--surface);
+  display:inline-block;
+  padding:18px 22px;
+}
+
+/* ---------- Bio ---------- */
+.bio-grid{
+  display:grid;
+  grid-template-columns: 220px 1fr;
+  gap:36px;
+  align-items:start;
+}
+@media (max-width: 620px){
+  .bio-grid{ grid-template-columns: 1fr; }
+}
+.photo-wrap img{
+  width:100%;
+  aspect-ratio: 4 / 5;
+  object-fit:cover;
+  border:1px solid var(--line);
+}
+.photo-placeholder{
+  width:100%;
+  aspect-ratio: 4 / 5;
+  border:1px dashed var(--line);
+  background:var(--surface);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  text-align:center;
+}
+.photo-placeholder p{
+  margin:0;
+  font-size:13px;
+  color:var(--muted-on-light);
+  line-height:1.5;
+}
+.photo-placeholder code{
+  display:inline-block;
+  margin-top:6px;
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+  font-size:12px;
+  color:var(--label-dark);
+}
+.bio-text{
+  background:var(--surface);
+  padding:26px 28px;
+}
+.bio-text p{ margin:0 0 16px; color:var(--ink); }
+.bio-text p:last-child{ margin-bottom:0; }
+.bio-text p.bio-lead{
+  font-family:var(--body);
+  font-weight:600;
+  color:var(--label-dark);
+  font-size:15px;
+  letter-spacing:0.01em;
+  margin-bottom:20px;
+}
+
+/* ---------- Music / embeds ---------- */
+.embed-grid{
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+.embed-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  padding:20px;
+}
+.embed-label{
+  display:block;
+  font-family:var(--body);
+  font-weight:600;
+  font-size:13px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--label-dark);
+  margin-bottom:14px;
+}
+.embed-frame iframe{
+  width:100%;
+  border:0;
+  display:block;
+}
+.embed-frame.bandcamp iframe{ height:120px; }
+.embed-frame.soundcloud iframe{ height:560px; }
+.embed-frame.youtube{ position:relative; padding-top:56.25%; height:0; }
+.embed-frame.youtube iframe{ position:absolute; top:0; left:0; width:100%; height:100%; }
+
+.embed-frame.link-only{ display:flex; justify-content:center; padding:26px 4px; }
+.listen-link{
+  display:inline-block;
+  padding:14px 26px;
+  border:1px solid var(--label-dark);
+  color:var(--label-dark);
+  text-decoration:none;
+  font-family:var(--body);
+  font-weight:600;
+  font-size:14px;
+  letter-spacing:0.03em;
+}
+.listen-link:hover{ background:var(--label-dark); color:var(--surface); }
+
+.embed-empty-note{
+  margin:0;
+  padding:22px 4px;
+  font-size:14px;
+  color:var(--muted-on-light);
+  text-align:center;
+  line-height:1.6;
+}
+.embed-empty-note code{
+  font-family: ui-monospace, "SF Mono", Consolas, monospace;
+  font-size:12.5px;
+  color:var(--label-dark);
+}
+
+/* ---------- Lyrics page: albums ---------- */
+.album-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap:20px;
+}
+.album-card{
+  background:none;
+  border:none;
+  padding:0;
+  cursor:pointer;
+  font-family:var(--body);
+  text-align:left;
+  color:var(--ink);
+}
+.album-cover{
+  width:100%;
+  aspect-ratio:1/1;
+  background:var(--surface);
+  border:2px solid transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:12px;
+  transition:border-color .15s ease;
+}
+.album-cover img{ width:100%; height:100%; object-fit:cover; }
+.album-cover p{ margin:0; font-size:12.5px; color:var(--muted-on-light); line-height:1.5; }
+.album-card.active .album-cover{ border-color:var(--accent); }
+.album-name{
+  display:block;
+  margin-top:10px;
+  font-weight:600;
+  font-size:14.5px;
+  color:var(--accent);
+}
+.album-meta{
+  display:block;
+  margin-top:2px;
+  font-size:12.5px;
+  color:var(--muted-on-dark);
+}
+
+/* ---------- Lyrics page: tracklist ---------- */
+.tracklist-panel{
+  margin-top:36px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  padding:24px 28px;
+  display:none;
+}
+.tracklist-panel.visible{ display:block; }
+.tracklist-title{
+  margin:0 0 16px;
+  font-family:var(--body);
+  font-weight:600;
+  font-size:15px;
+  letter-spacing:0.01em;
+  color:var(--label-dark);
+}
+.tracklist{
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.tracklist li{
+  border-top:1px solid var(--line);
+}
+.tracklist li:first-child{ border-top:none; }
+.track-btn{
+  width:100%;
+  text-align:left;
+  background:none;
+  border:none;
+  padding:14px 4px;
+  font-family:var(--body);
+  font-size:16px;
+  color:var(--ink);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.track-btn:hover{ color:var(--label-dark); font-weight:600; }
+.track-btn .arrow{ color:var(--muted-on-light); font-size:13px; }
+
+/* ---------- Lyrics page: lyrics panel ---------- */
+.lyrics-panel{
+  margin-top:20px;
+  background:var(--label-dark);
+  color:var(--surface);
+  padding:26px 28px;
+  display:none;
+}
+.lyrics-panel.visible{ display:block; }
+.lyrics-back{
+  display:inline-block;
+  margin-bottom:16px;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  color:var(--accent);
+  text-decoration:none;
+  cursor:pointer;
+  background:none;
+  border:none;
+  padding:0;
+}
+.lyrics-track-title{
+  margin:0 0 18px;
+  font-family:var(--display);
+  font-weight:400;
+  font-size:24px;
+  letter-spacing:0.02em;
+  text-transform:uppercase;
+  color:var(--surface);
+}
+.lyrics-text{
+  white-space:pre-line;
+  font-size:16px;
+  line-height:1.8;
+  color:var(--surface);
+  margin:0;
+}
+
+/* ---------- Footer ---------- */
+footer{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:32px 24px 56px;
+  font-size:13px;
+  color:var(--muted-on-dark);
+}
