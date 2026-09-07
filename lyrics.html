@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lyrics — Brainwavez</title>
+<meta name="description" content="Lyrics van Brainwavez, per album en per track.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="banner">
+    <img src="images/banner.jpg" alt="Brainwavez — Nederlandstalige hiphop-liveband">
+  </header>
+
+  <nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="lyrics.html" class="active">Lyrics</a>
+  </nav>
+
+  <main>
+
+    <section class="section" id="lyrics" style="border-bottom:none;">
+      <p class="eyebrow">Kies een album</p>
+      <h2 class="section-title">Lyrics</h2>
+
+      <!--
+        HOE VOEG JE EEN ALBUM / TRACK / TEKST TOE?
+        Kijk helemaal onderin dit bestand naar het <script>-blok.
+        Daar staat één "albums"-lijst met gewone tekst — geen
+        programmeerkennis nodig om die aan te vullen.
+      -->
+
+      <div class="album-grid" id="albumGrid"></div>
+
+      <div class="tracklist-panel" id="tracklistPanel">
+        <p class="tracklist-title" id="tracklistTitle"></p>
+        <ul class="tracklist" id="tracklist"></ul>
+      </div>
+
+      <div class="lyrics-panel" id="lyricsPanel">
+        <button class="lyrics-back" id="lyricsBack">← Terug naar tracklist</button>
+        <h3 class="lyrics-track-title" id="lyricsTrackTitle"></h3>
+        <p class="lyrics-text" id="lyricsText"></p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Brainwavez</p>
+  </footer>
+
+  <script>
+    /* =====================================================================
+       ALBUMS & LYRICS — pas dit blok aan om albums/tracks/teksten te wijzigen.
+
+       Per album:
+         title   -> albumnaam
+         cover   -> pad naar hoesfoto (bv. "images/albums/mijnalbum.jpg"),
+                    of laat leeg ("") voor een simpel "cover volgt"-vakje
+         tracks  -> lijst van { title, lyrics }
+                    "lyrics" mag je met enters typen, die blijven behouden.
+
+       Voorbeeld van een nieuw album toevoegen: kopieer het blok tussen
+       de { } van "Debuutalbum" hieronder, pas de tekst aan, en zet er
+       een komma tussen de twee albums.
+    ===================================================================== */
+    const albums = [
+      {
+        title: "Debuutalbum (nog te verschijnen)",
+        cover: "",
+        tracks: [
+          {
+            title: "Sweet Jamaica",
+            lyrics: "Lyrics nog toe te voegen.\n\nVervang deze tekst door de echte songtekst zodra die klaar is."
+          },
+          {
+            title: "Endless Summer",
+            lyrics: "Lyrics nog toe te voegen.\n\nVervang deze tekst door de echte songtekst zodra die klaar is."
+          }
+        ]
+      }
+    ];
+
+    /* ===================== onderstaande code hoef je niet aan te passen ===================== */
+
+    const albumGrid = document.getElementById('albumGrid');
+    const tracklistPanel = document.getElementById('tracklistPanel');
+    const tracklistTitle = document.getElementById('tracklistTitle');
+    const tracklistEl = document.getElementById('tracklist');
+    const lyricsPanel = document.getElementById('lyricsPanel');
+    const lyricsTrackTitle = document.getElementById('lyricsTrackTitle');
+    const lyricsText = document.getElementById('lyricsText');
+    const lyricsBack = document.getElementById('lyricsBack');
+
+    function renderAlbums(){
+      albumGrid.innerHTML = '';
+      albums.forEach((album, albumIndex) => {
+        const card = document.createElement('button');
+        card.className = 'album-card';
+        card.setAttribute('type', 'button');
+
+        const cover = document.createElement('div');
+        cover.className = 'album-cover';
+        if (album.cover) {
+          const img = document.createElement('img');
+          img.src = album.cover;
+          img.alt = album.title;
+          cover.appendChild(img);
+        } else {
+          const p = document.createElement('p');
+          p.textContent = 'Cover volgt';
+          cover.appendChild(p);
+        }
+        card.appendChild(cover);
+
+        const name = document.createElement('span');
+        name.className = 'album-name';
+        name.textContent = album.title;
+        card.appendChild(name);
+
+        const meta = document.createElement('span');
+        meta.className = 'album-meta';
+        meta.textContent = album.tracks.length + (album.tracks.length === 1 ? ' track' : ' tracks');
+        card.appendChild(meta);
+
+        card.addEventListener('click', () => openTracklist(albumIndex, card));
+        albumGrid.appendChild(card);
+      });
+    }
+
+    function openTracklist(albumIndex, cardEl){
+      document.querySelectorAll('.album-card').forEach(c => c.classList.remove('active'));
+      cardEl.classList.add('active');
+
+      const album = albums[albumIndex];
+      tracklistTitle.textContent = album.title;
+      tracklistEl.innerHTML = '';
+
+      album.tracks.forEach((track, trackIndex) => {
+        const li = document.createElement('li');
+        const btn = document.createElement('button');
+        btn.className = 'track-btn';
+        btn.setAttribute('type', 'button');
+        btn.innerHTML = '<span>' + track.title + '</span><span class="arrow">Lyrics →</span>';
+        btn.addEventListener('click', () => openLyrics(albumIndex, trackIndex));
+        li.appendChild(btn);
+        tracklistEl.appendChild(li);
+      });
+
+      tracklistPanel.classList.add('visible');
+      lyricsPanel.classList.remove('visible');
+      tracklistPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function openLyrics(albumIndex, trackIndex){
+      const track = albums[albumIndex].tracks[trackIndex];
+      lyricsTrackTitle.textContent = track.title;
+      lyricsText.textContent = track.lyrics;
+      lyricsPanel.classList.add('visible');
+      lyricsPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    lyricsBack.addEventListener('click', () => {
+      lyricsPanel.classList.remove('visible');
+      tracklistPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    renderAlbums();
+  </script>
+
+</body>
+</html>
